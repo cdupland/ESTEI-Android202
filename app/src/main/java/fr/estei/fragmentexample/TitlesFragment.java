@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import fr.estei.fragmentexample.fr.estei.data.FakeData;
 
@@ -28,12 +30,12 @@ public class TitlesFragment extends ListFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
         try{
-            callback = (OnTitleSelectedListener)getActivity();
+            callback = (OnTitleSelectedListener)activity;
         }catch (ClassCastException e ){
-            throw new ClassCastException("Tu dois implementer" + getActivity().toString());
+            throw new ClassCastException("Tu dois implementer" + activity.toString());
         }
 
     }
@@ -48,7 +50,7 @@ public class TitlesFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-       callback.onTitleSelected(position);
-        getListView().setItemChecked(position,true);
+            callback.onTitleSelected(position);
+            getListView().setItemChecked(position, true);
     }
 }

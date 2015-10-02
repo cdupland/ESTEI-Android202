@@ -17,6 +17,9 @@ public class MainActivity extends Activity implements TitlesFragment.OnTitleSele
         /*Check if we are on two-fragment view or on a small device*/
         if(findViewById(R.id.Fragment_container) != null){
             /*Hey i'm a small device*/
+            if(savedInstanceState != null){
+                return;
+            }
             TitlesFragment titleList = new TitlesFragment();
             getFragmentManager().beginTransaction()
                     .add(R.id.Fragment_container,titleList)
@@ -30,7 +33,9 @@ public class MainActivity extends Activity implements TitlesFragment.OnTitleSele
             articleView.updateArticle(index);
         }else{
             articleView = new ArticleFragment();
-
+            Bundle args = new Bundle();
+            args.putInt(ArticleFragment.ARG_POSITION,index);
+            articleView.setArguments(args);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.Fragment_container,articleView);
             transaction.addToBackStack(null);

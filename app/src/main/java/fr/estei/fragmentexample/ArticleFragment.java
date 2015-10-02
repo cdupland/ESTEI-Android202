@@ -32,6 +32,7 @@ public class ArticleFragment extends Fragment {
 
     @Override
     public void onStart() {
+        super.onStart();
         Bundle bundle = getArguments();
         if(bundle != null){
             updateArticle(bundle.getInt(ARG_POSITION));
